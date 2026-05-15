@@ -4,7 +4,7 @@ import Auth from './Auth.jsx'
 const API_URL = 'http://localhost:8000'
 
 const TOOL_LABELS = {
-  authenticate: 'Verifying AllMasters credentials...',
+  authenticate: 'Verifying TankTainer credentials...',
   search_schedule: 'Searching schedules...',
   get_booking_status: 'Fetching booking details...',
   get_milestones: 'Loading milestones...',
@@ -347,17 +347,8 @@ export default function App() {
       <aside className="sidebar">
         <div className="sidebar-header">
           <div className="sidebar-logo">
-            <div className="sidebar-logo-icon">
-              <svg width="28" height="28" viewBox="0 0 44 44" fill="none">
-                <circle cx="14" cy="22" r="10" stroke="#F5C518" strokeWidth="3" fill="none" />
-                <circle cx="30" cy="22" r="10" stroke="#fff" strokeWidth="3" fill="none" />
-                <circle cx="22" cy="10" r="4" fill="#F5C518" />
-              </svg>
-            </div>
             <div>
-              <h2>
-                <span className="logo-all">All</span>Masters
-              </h2>
+              <h2>TankTainer</h2>
               <p>AI Assistant</p>
             </div>
           </div>
@@ -396,7 +387,7 @@ export default function App() {
       <main className="chat-area">
         <div className="chat-header">
           <div className="chat-header-info">
-            <span className="chat-header-title">AllMasters AI</span>
+            <span className="chat-header-title">TankTainer AI</span>
             <span className="chat-header-sub">
               {chatId ? `chat/${chatId.slice(0, 8)}...` : 'Schedules · Bookings · Milestones'}
             </span>
@@ -406,7 +397,7 @@ export default function App() {
         <div className="messages">
           {messages.length === 0 && (
             <div className="empty-state">
-              <div className="empty-logo">AM</div>
+              <div className="empty-logo">TT</div>
               <h3>How can I help you, {user?.name?.split(' ')[0] || 'there'}?</h3>
               <p>Ask about vessel schedules, booking status, or milestone updates.</p>
               {/* <div className="suggestions">
@@ -420,13 +411,7 @@ export default function App() {
           {messages.map((msg, i) => (
             <div key={i} className={`message ${msg.role} ${msg.error ? 'error' : ''}`}>
               {msg.role === 'assistant' && (
-                <div className="avatar">
-                  <svg width="14" height="14" viewBox="0 0 44 44" fill="none">
-                    <circle cx="14" cy="22" r="10" stroke="#F5C518" strokeWidth="3.5" fill="none" />
-                    <circle cx="30" cy="22" r="10" stroke="#fff" strokeWidth="3.5" fill="none" />
-                    <circle cx="22" cy="10" r="4" fill="#F5C518" />
-                  </svg>
-                </div>
+                <div className="avatar">AI</div>
               )}
               <div className="bubble">
                 <span className="bubble-text">{msg.content}</span>
@@ -515,11 +500,11 @@ export default function App() {
               title="Close"
               aria-label="Close"
             >✕</button>
-            <h3>AllMasters Login</h3>
+            <h3>TankTainer Login</h3>
             <p className="am-modal-sub">Sign in to continue. Your password is sent securely and never stored in chat.</p>
             <input
               type="email"
-              placeholder="AllMasters email"
+              placeholder="TankTainer email"
               value={amEmail}
               onChange={e => setAmEmail(e.target.value)}
               autoFocus

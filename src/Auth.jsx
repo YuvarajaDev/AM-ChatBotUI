@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import logo from './assets/logo.png'
 
 const API_URL = 'http://localhost:8000'
 
@@ -53,15 +52,10 @@ export default function Auth({ onSuccess }) {
     <div className="auth-page">
       <div className="auth-card">
 
-        {/* Logo */}
+        {/* Brand */}
         <div className="auth-logo">
-          <div className="auth-logo-icon">
-            <img src={logo} alt="AllMasters Logo" style={{ width: 44, height: 44, objectFit: 'contain' }} />
-          </div>
           <div>
-            <h1 className="auth-brand">
-              <span className="auth-brand-all">All</span>Masters
-            </h1>
+            <h1 className="auth-brand">TankTainer</h1>
             <p className="auth-brand-sub">AI Assistant</p>
           </div>
         </div>
@@ -69,7 +63,7 @@ export default function Auth({ onSuccess }) {
         {/* Heading */}
         <div className="auth-heading">
           <h2>{tab === 'login' ? 'Welcome back !' : 'Create Account'}</h2>
-          <p>{tab === 'login' ? 'Book & Track your shipments' : 'Join AllMasters AI Assistant'}</p>
+          <p>{tab === 'login' ? 'Book & Track your shipments' : 'Join TankTainer AI Assistant'}</p>
         </div>
 
         {/* Tabs */}
