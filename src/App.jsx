@@ -35,6 +35,7 @@ export default function App() {
   const [chatId, setChatId] = useState(null)
   const [chatList, setChatList] = useState([])
   const [attachedFile, setAttachedFile] = useState(null)  // { fileName, filePath (base64), fileLabel }
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   // AM auth modal state
   const [amAuthOpen, setAmAuthOpen] = useState(false)
@@ -118,6 +119,7 @@ export default function App() {
     setMessages([])
     setActiveTools([])
     setInput('')
+    setSidebarOpen(false)
     window.history.pushState({}, '', '/')
   }, [isStreaming])
 
@@ -343,8 +345,13 @@ export default function App() {
   return (
     <div className="app">
 
+      {/* ── Mobile sidebar overlay ───────────────────────────────────────────── */}
+      {sidebarOpen && (
+        <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />
+      )}
+
       {/* ── Sidebar ─────────────────────────────────────────────────────────── */}
-      <aside className="sidebar">
+      <aside className={`sidebar${sidebarOpen ? ' open' : ''}`}>
         <div className="sidebar-header">
           <div className="sidebar-logo">
             <div>
@@ -365,7 +372,7 @@ export default function App() {
               <button
                 key={c.id}
                 className={`chat-list-item ${c.id === chatId ? 'active' : ''}`}
-                onClick={() => loadChat(c.id)}
+                onClick={() => { loadChat(c.id); setSidebarOpen(false) }}
               >
                 <span className="chat-list-icon">💬</span>
                 <span className="chat-list-text">{c.title || 'New Chat'}</span>
@@ -386,6 +393,13 @@ export default function App() {
       {/* ── Main Chat Area ───────────────────────────────────────────────────── */}
       <main className="chat-area">
         <div className="chat-header">
+          <button className="menu-btn" onClick={() => setSidebarOpen(o => !o)} aria-label="Toggle sidebar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </button>
           <div className="chat-header-info">
             <span className="chat-header-title">TankTainer AI</span>
             <span className="chat-header-sub">
