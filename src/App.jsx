@@ -38,6 +38,7 @@ export default function App() {
 
   // AM auth modal state
   const [amAuthOpen, setAmAuthOpen] = useState(false)
+  const [amUserType, setAmUserType] = useState('')
   const [amEmail, setAmEmail] = useState('')
   const [amPassword, setAmPassword] = useState('')
   const [amShowPassword, setAmShowPassword] = useState(false)
@@ -264,6 +265,7 @@ export default function App() {
       authModalTimerRef.current = null
     }
     pendingMessageRef.current = null
+    setAmUserType('')
     setAmEmail('')
     setAmPassword('')
     setAmShowPassword(false)
@@ -274,8 +276,8 @@ export default function App() {
   // ── AM auth modal submit ───────────────────────────────────────────────────
   const submitAmAuth = async () => {
     if (amSubmitting) return
-    if (!amEmail.trim() || !amPassword) {
-      setAmError('Email and password are required.')
+    if (!amUserType || !amEmail.trim() || !amPassword) {
+      setAmError('Please select a type, and enter your email and password.')
       return
     }
     setAmSubmitting(true)
@@ -288,6 +290,7 @@ export default function App() {
           chat_id: chatId,
           email: amEmail.trim(),
           password: amPassword,
+          user_type: parseInt(amUserType),
         }),
       })
       const data = await res.json()
@@ -301,6 +304,7 @@ export default function App() {
       // so the resend doesn't visually duplicate them, then resend.
       const pending = pendingMessageRef.current
       pendingMessageRef.current = null
+      setAmUserType('')
       setAmPassword('')
       setAmEmail('')
       setAmShowPassword(false)
@@ -517,6 +521,16 @@ export default function App() {
             >✕</button>
             <h3>AllMasters Login</h3>
             <p className="am-modal-sub">Sign in to continue. Your password is sent securely and never stored in chat.</p>
+            <select
+              value={amUserType}
+              onChange={e => { setAmUserType(e.target.value); setAmError('') }}
+              disabled={amSubmitting}
+            >
+              <option hidden value="">Select Type</option>
+              <option value="1">I am a Customer</option>
+              <option value="2">I am a Partner</option>
+              <option value="3">I am an Administrator</option>
+            </select>
             <input
               type="email"
               placeholder="AllMasters email"
